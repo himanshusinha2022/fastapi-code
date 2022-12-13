@@ -1,6 +1,6 @@
 name: Build and deploy to test
 
-push:
+  push:
   branches: 
     - main
       
