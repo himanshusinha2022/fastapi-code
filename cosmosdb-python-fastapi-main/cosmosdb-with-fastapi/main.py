@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from dotenv import dotenv_values
 from azure.cosmos.aio import CosmosClient
 from azure.cosmos import PartitionKey, exceptions
-from routes import router as todo_router
+from router import routes as todo_router
 
 config = dotenv_values(".env")
 app = FastAPI()

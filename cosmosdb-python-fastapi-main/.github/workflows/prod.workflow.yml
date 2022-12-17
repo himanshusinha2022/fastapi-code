@@ -1,8 +1,9 @@
 name: Build and deploy to test
 
+on: 
   push:
-  branches: 
-    - main
+    branches: 
+      - main
       
 jobs:
   build-and-deploy:
