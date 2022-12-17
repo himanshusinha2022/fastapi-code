@@ -3,22 +3,22 @@ from fastapi.encoders import jsonable_encoder
 from typing import List
 from models import ToDoItem
 
-routes = APIRouter()
+router = APIRouter()
 
 
-@routes.post("/insert", response_model=ToDoItem)
+@router.post("/insert", response_model=ToDoItem)
 async def create_todo(request: Request, todo_item: ToDoItem):
     todo_item = jsonable_encoder(todo_item)
     new_todo = await request.app.todo_items_container.create_item(todo_item)
     return new_todo
 
-@routes.get("/listall", response_description="List of all To-do items", response_model=List[ToDoItem])
+@router.get("/listall", response_description="List of all To-do items", response_model=List[ToDoItem])
 async def list_todos(request: Request):
     todos = [todo async for todo in request.app.todo_items_container.read_all_items()]
     return todos
     
 
-@routes.put("/update", response_model = ToDoItem, )
+@router.put("/update", response_model = ToDoItem, )
 async def replace_todo(request: Request, item_with_update:ToDoItem):
     """
     Update an item. Id (which is also the PartitionKey in this case) values should reference the item to be updated:
@@ -38,7 +38,7 @@ async def replace_todo(request: Request, item_with_update:ToDoItem):
     return updatedItem
 
 
-@routes.delete("/delete")
+@router.delete("/delete")
 async def delete_todo(request: Request, item_id: str, pk: str):
      await request.app.todo_items_container.delete_item(item_id, partition_key=pk)
 
